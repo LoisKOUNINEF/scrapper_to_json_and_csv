@@ -24,6 +24,21 @@ def save_as_json(list)
   end
 end
 
+#def save_as_spreadsheet(list)
+#  session = GoogleDrive::Session.from_config("config.json")
+#  File.open("db/emails.xls" , "w") do |counter|
+#    counter.write(list.to_xls)
+#  end
+#end
+
+def save_as_csv(list)
+  CSV.open("db/emails.csv" , "w") do |csv|
+    list.each do |row|
+      csv << row.to_a
+    end
+  end
+end
+
 def perform
   page = Nokogiri::HTML(URI.open(PAGE_URL))
   townhall_urls = get_townhall_urls(page)
@@ -32,7 +47,7 @@ def perform
   #puts array_email
   list = Hash[townhall_urls.zip(array_email)]
   save_as_json(list)
+  #save_as_spreadsheet(list)
+  save_as_csv(list)
 end
-
-
 end

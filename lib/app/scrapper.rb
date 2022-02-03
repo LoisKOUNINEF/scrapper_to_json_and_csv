@@ -22,6 +22,9 @@ def save_as_json(list)
   File.open("db/emails.json" , "w") do |counter|
     counter.write(list.to_json)
   end
+  json = File.read("db/emails.json")
+  obj1 = JSON.parse(json)
+  pp obj1
 end
 
 #def save_as_spreadsheet(list)
@@ -37,6 +40,9 @@ def save_as_csv(list)
       csv << row.to_a
     end
   end
+  csv = File.read("db/emails.csv")
+  obj2 = CSV.parse(csv)
+  pp obj2
 end
 
 def perform
